@@ -2,32 +2,52 @@
 var today = dayjs();
 var hourArray = [];
 var startHour = 9;
+var calendarHours = 8;
+var index = 0;
 
 
-$('#currentDay').text(today.format('dddd H:mm')); // display the current date and time on the paragraph with an id of "currentDay"
+
+$('#currentDay').text(today.format('ddd MMM D h:mmA')); // display the current date and time on the paragraph with an id of "currentDay"
 
 // wraping all code that interacts with the DOM in a call to jQuery to ensure that the code isn't run until the browser has finished rendering all the elements in the html. 
 $(document).ready(function () {
+  
+  //console.log(startHour);
+  calendar();
   var timeBlockEl = document.querySelector('.container-lg'); // reference the whole task (time and textarea)
 
   // bulding 9-hour calendar, 9 rows
    // for loop i=0 to 8, i++ 
       // create new row with an atribute recorded in html
       // end loop
-for (let i = 9; i < 18; i++) {
-  hourArray.push(startHour); // add to the array
-  var row = $('<div').attr('id', 'hour-' + i).addClass('row time-block');
-  var hourColumn = $('<div>').addClass('col-2 col-md-1 hour text-center py-3').text(startHour);
-  var descriptionColumn = $('<textarea>').attr('id', 'hour-' + i).addClass('col-8 col-md-10 description').attr('rows', '3');
-  var saveBtnColumn = $('<button>').attr('id', 'hour-' + i).addClass('btn saveBtn col-2 col-md-1').attr('aria-label', 'save');
-  var saveIcon = $('<i>').attr('id', 'hour-' + i).addClass('fas fa-save').attr('aria-hidden', 'true');
+  function calendar () {
+    var startHour = 9;
+    for (var i = startHour; i <= startHour + calendarHours; i++) {
+    var clockHr = dayjs().hour(i); // clockHr = 9AM through 5 PM
+    var formatedHour = clockHr.format('hA'); // convert to 12-hour AM/PM format
+    hourArray.push(formatedHour); // add to the array
+    var row = $('<div>').attr('id', 'hour-' + i).addClass('row time-block');
+    var hourColumn = $('<div>').addClass('col-2 col-md-1 hour text-center py-3').text(formatedHour);
+    var descriptionColumn = $('<textarea>').attr('id', 'hour-' + i).addClass('col-8 col-md-10 description').attr('rows', '3');
+    var saveBtnColumn = $('<button>').attr('id', 'hour-' + i).addClass('btn saveBtn col-2 col-md-1').attr('aria-label', 'save');
+    var saveIcon = $('<i>').attr('id', 'hour-' + i).addClass('fas fa-save').attr('aria-hidden', 'true');
+
+  // add code to apply the past, present, or future class to each time block by comparing the id to the current hour. 
+
+  saveBtnColumn.append(saveIcon);
+      row.append(hourColumn, descriptionColumn, saveBtnColumn);
+      $('.container-lg.px-5').append(row);
+
+      
+    }
+
+  }
+  
 
 
 
 
 
-
-}
 
 
   // add code to apply the past, present, or future class to each time block by comparing the id to the current hour. 
@@ -62,7 +82,7 @@ for (let i = 9; i < 18; i++) {
 
 
 
-$('#currentDay').text(today.format('dddd hh:mm A'));
+//$('#currentDay').text(today.format('dddd hh:mm A'));
 
 
 
