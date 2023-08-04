@@ -31,17 +31,42 @@ $(document).ready(function () {
     var descriptionColumn = $('<textarea>').attr('id', 'hour-' + i).addClass('col-8 col-md-10 description').attr('rows', '3');
     var saveBtnColumn = $('<button>').attr('id', 'hour-' + i).addClass('btn saveBtn col-2 col-md-1').attr('aria-label', 'save');
     var saveIcon = $('<i>').attr('id', 'hour-' + i).addClass('fas fa-save').attr('aria-hidden', 'true');
-
-  // add code to apply the past, present, or future class to each time block by comparing the id to the current hour. 
-
-  saveBtnColumn.append(saveIcon);
-      row.append(hourColumn, descriptionColumn, saveBtnColumn);
-      $('.container-lg.px-5').append(row);
-
-      
     }
 
+    saveBtnColumn.append(saveIcon);
+    row.append(hourColumn, descriptionColumn, saveBtnColumn);
+     $('.container-lg.px-5').append(row);
   }
+
+   // add code to apply the past, present, or future class to each time block by comparing the id to the current hour. 
+
+
+
+function auditColor () {
+  var currentHour = today.hours(); // current hour
+  $('.row').attr('class', 'time-block') //adding class 'time-block' to each row
+  $('.time-block').each(function (){
+    var timeId = parseInt($(this).attr('id').split('hour-')[1]);
+     if (timeId < currentHour) {
+      $(this).addClass('past');
+     }
+     else if (timeId === calendarHours) {
+      $(this).removeClass('past');
+      $(this).removeClass('future');
+      $(this).addClass('present');
+     }
+     else {
+      $(this).removeClass('past');
+      $(this).removeClass('present');
+      $(this).addClass('future');
+     }
+    });
+  }
+
+
+
+});
+
   
 
 
@@ -59,7 +84,7 @@ $(document).ready(function () {
 
 
 
-});
+
 
 
 
