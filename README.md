@@ -40,4 +40,8 @@ The following image shows the web application's appearance and functionality:
 
 Deployed Site Link:
 
+https://ymishyna.github.io/Work-Day-Scheduler/
+
 GitHub Link:
+
+https://github.com/Ymishyna/Work-Day-Scheduler
